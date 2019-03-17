@@ -1,18 +1,33 @@
-// console.log('starting 2.js');
+const express = require("express");
+const hbs = require("hbs");
+const bodyParser = require("body-parser");
+var _ = require("lodash");
 const f1=require("./1.js");
 const f3 = require("./3.js");
-const express = require("express");
-var app=express();
-// const hbs1 = require("./hbs.js");
-const port = process.env.PORT|| 8080;
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
-var _ = require("lodash");
+// const f1 = require("./1.js");
+var app = express();
 var toneAnalyzer = new ToneAnalyzerV3({
   version_date: '2017-09-21',
   iam_apikey: '0-d1jIUkds2pViHbl770EjA_pG8y9wSrBH5wBPlLc6b-',
   url: 'https://gateway-lon.watsonplatform.net/tone-analyzer/api'
 });
-var toneParams=f1.toneParams;
+app.set('view engine','hbs');
+app.use(bodyParser.urlencoded({extended:true}));
+
+app.get('/',(req,res)=>{
+    res.render('render.hbs');
+});
+
+var toneParams;
+app.post('/',(req,res)=>{
+   var text = req.body.name;
+//   res.render('render.hbs');
+    toneParams = {
+  tone_input: { 'text': text },
+  content_type: 'application/json',
+  sentences:false,
+};
 toneAnalyzer.tone(toneParams, function (error,toneAnalysis) {
   if (error) {
     return error;
@@ -27,7 +42,7 @@ toneAnalyzer.tone(toneParams, function (error,toneAnalysis) {
     // return JSON.stringify(toneAnalysis);
     }
 });
-app.listen(port,()=>{
-  console.log(`app is running on port ${port}`);
 });
-// console.log(data);
+
+
+app.listen(8080);
