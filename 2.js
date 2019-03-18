@@ -1,10 +1,10 @@
 // console.log('starting 2.js');
 const f1=require("./1.js");
 const f3 = require("./3.js");
-const express = require("express");
-var app=express();
+// const express = require("express");
+// var app=express();
 // const hbs1 = require("./hbs.js");
-const port = process.env.PORT|| 8080;
+// const port = process.env.PORT|| 8080;
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 var _ = require("lodash");
 var toneAnalyzer = new ToneAnalyzerV3({

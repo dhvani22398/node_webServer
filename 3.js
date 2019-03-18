@@ -32,4 +32,4 @@ var countThreshold=(text)=>{
     
 };
 
-// module.exports={countThreshold};
+module.exports={countThreshold};

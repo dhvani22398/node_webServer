@@ -1,12 +1,58 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>testing</title>
-    </head>
-    <body>
-        <form action="/" method="post">
-            <input type="text" id="name" name="name" placeholder="enter your text"/>
+{{!--<!DOCTYPE html>--}}
+{{!--<html>--}}
+{{!--    <head>--}}
+{{!--        <title>testing</title>--}}
+{{!--    </head>--}}
+{{!--    <body>--}}
+{{!--        <form action="/" method="post">--}}
+{{!--            <input type="text" id="name" name="name" placeholder="enter your text"/>--}}
             {{!--<button>Submit</button>--}}
-        </form>
-    </body>
+{{!--        </form>--}}
+{{!--    </body>--}}
+{{!--</html>--}}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Speech Recording</title>
+</head>
+<body>
+  <h1 style="text-align: right;">Click allow button to recognize the speech</h1>
+  <!-- <button onclick=""> -->
+  <!-- <div id="textGot" style="border:1px solid black;"></div>  -->
+  <form action="/" method="post"> 
+    <!-- <input type="" name=""> -->
+                <!-- <input type="text" id="name" name="name"/> -->
+                <textarea id="textGot" name="textGot"></textarea>
+            <button>Submit</button> 
+  </form> 
+  
+  <script>
+    window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+    let finalTranscript = '';
+    let recognition = new window.SpeechRecognition();
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 10;
+    recognition.continuous = true;
+    recognition.onresult = (event) => {
+      let interimTranscript = '';
+      for (let i = event.resultIndex, len = event.results.length; i < len; i++) {
+        let transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript;
+        } else {
+          interimTranscript += transcript;
+        }
+      }
+      // document.getElementById('textGot').innerHTML = finalTranscript + '<i style="color:#ddd;">' + interimTranscript + '</>';
+      document.getElementById('textGot').innerHTML = finalTranscript 
+      + interimTranscript;
+    };
+    recognition.start();
+  </script>
+</body>
 </html>

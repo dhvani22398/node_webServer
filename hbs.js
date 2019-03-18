@@ -21,7 +21,7 @@ app.get('/',(req,res)=>{
 
 var toneParams;
 app.post('/',(req,res)=>{
-   var text = req.body.name;
+   var text = req.body.textGot;
 //   res.render('render.hbs');
     toneParams = {
   tone_input: { 'text': text },
